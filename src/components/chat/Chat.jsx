@@ -31,7 +31,7 @@ const Chat = () => {
     var message = { username: "SampleUser1", message: inputRef.current.value };
     try {
       var res = await axios.post(
-        "https://jhonndevelopershop.herokuapp.com/messages",
+        "https://jhonndevshop.vercel.app/api/messages",
         message,
         {
           headers: { Authorization: `Bearer ${token}` },

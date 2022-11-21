@@ -1,10 +1,15 @@
 import Chat from "./components/chat/Chat";
+import NavBar from "./components/NavBar/NavBar";
 
+import "./style.css"
 
 function App() {
   return (
     <>
-    <Chat/>
+    <header>
+      <NavBar/>
+    </header>
+    {/* <Chat/> */}
     </>
   );
 }

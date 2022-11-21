@@ -1,0 +1,68 @@
+.home__container {
+  width: 80%;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home__logo {
+  width: 350px;
+  height: 70px;
+  background-image: url(../../img/ChatJD-1.png);
+
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  margin-bottom: 10px;
+}
+.home__title {
+  color: #595959;
+  line-height: 100%;
+  margin-bottom: 5px;
+}
+.home__subtitle {
+  color: #bbbbbb;
+  font-weight: 400;
+  margin-bottom: 25px;
+}
+
+.home__register {
+  width: 60%;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  padding: 25px;
+  font-family: "Quicksand", sans-serif;
+  color: #595959;
+  font-size: 28px;
+}
+.register__label {
+  width: 200px;
+}
+
+.register__group {
+  width: 90%;
+  margin: 0 auto 15px auto;
+}
+
+.register__title {
+  margin-bottom: 15px;
+}
+
+.register__label {
+  font-size: 20px;
+  height: 51px;
+  align-items: center;
+}
+
+.register__input {
+  width: 379px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  padding-left: 15px;
+}
+
+#countryOption {
+  width: 381px;
+}
+#age {
+  width: 100px;
+}

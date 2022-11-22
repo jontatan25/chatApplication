@@ -6,9 +6,9 @@ const NavBar = () => {
     <div className="navBar__container -flex">
       <div className="navBar__logo" alt="Company Logo"></div>
       <ul className="navBar__nav -flex">
-        <li className="nav__item"><button className="nav__item-btn -btn-primary">Home</button> </li>
-        <li className="nav__item"><button className="nav__item-btn -btn-primary">About</button> </li>
-        <li className="nav__item"><button className="nav__item-btn -btn-primary">Contact Us</button></li>
+        <li className="nav__item"><button className="nav__item-btn -btn-primary -title">Home</button> </li>
+        <li className="nav__item"><button className="nav__item-btn -btn-primary -title">About</button> </li>
+        <li className="nav__item"><button className="nav__item-btn -btn-primary -title">Contact Us</button></li>
       </ul>
     </div>
   );

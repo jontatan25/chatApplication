@@ -22,7 +22,7 @@ ul {
   list-style-type: none;
 }
 html * {
-    font-family: 'Quicksand', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif; 
 }
 
 .-flex {
@@ -37,4 +37,16 @@ html * {
 }
 .-btn-primary:hover {
   cursor: pointer;
+}
+
+.-title {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.-noborder {
+  border: none;
+}
+
+.-acenter {
+ align-items: center
 }

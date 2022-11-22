@@ -27,12 +27,17 @@
 
 .home__register {
   width: 60%;
-  border: 1px solid #d1d1d1;
+
   border-radius: 5px;
   padding: 25px;
   font-family: "Quicksand", sans-serif;
   color: #595959;
   font-size: 28px;
+  -webkit-box-shadow: inset 0px -1px 0px 2px rgba(235,235,235,1);
+  -moz-box-shadow: inset 0px -1px 0px 2px rgba(235,235,235,1);
+  box-shadow: inset 0px -1px 0px 2px rgba(235,235,235,1);
+
+  margin-bottom: 15px;
 }
 .register__label {
   width: 200px;
@@ -66,3 +71,30 @@
 #age {
   width: 100px;
 }
+
+.register__input__gender {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+#female {
+  margin-left: 12px;
+  width: 15px;
+  height: 15px;
+}
+#female {
+  filter: hue-rotate(130deg);
+}
+
+#male {
+  width: 15px;
+  height: 15px;
+}
+
+.register__avatar {
+  height: 85px;
+}
+
+
+/* border: 1px solid #d1d1d1; */

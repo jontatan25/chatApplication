@@ -10,11 +10,11 @@ const Avatar = ({ selectedGender }) => {
   const [showAvatar, setShowAvatar] = useState(false);
   const [maleAvatars, setMaleAvatars] = useState([]);
   const [femaleAvatars, setFemaleAvatars] = useState([]);
+  const [selectedAvatar, setSelectedAvatar] = useState([]);
 
   const toogleAvatar = (e) => {
     e.preventDefault();
     setShowAvatar(!showAvatar);
-    console.log("print");
   };
 
   useEffect(() => {
@@ -29,24 +29,36 @@ const Avatar = ({ selectedGender }) => {
     setFemaleAvatars(femaleArray);
     setLoading(false);
   }, []);
-
   useEffect(() => {
-    console.log(showAvatar);
-  }, [maleAvatars]);
+    if (!loading) {
+      if (selectedGender === "ismale") setSelectedAvatar(maleAvatars[0]);
+      else if (selectedGender === "isfemale")
+        setSelectedAvatar(femaleAvatars[0]);
+    }
+  }, [loading, selectedGender]);
+  useEffect(() => {
+    console.log(selectedAvatar);
+  }, [selectedAvatar]);
+
+  const handleAvatarChange = (e, img) => {
+    e.preventDefault();
+    setSelectedAvatar(img);
+  };
   return (
     <>
       {!loading ? (
         <button
           className="avatar__dropdown -flex -acenter"
           onClick={(e) => toogleAvatar(e)}
+          disabled={!selectedGender ? true : false}
         >
           <div className="avatar__container -flex">
             <div
               className="avatar__image"
               style={
-                selectedGender === "ismale"
-                  ? { backgroundImage: `url(${maleAvatars[0].url})` }
-                  : { backgroundImage: `url(${femaleAvatars[0].url})` }
+                !selectedGender
+                  ? { backgroundImage: `url(${null})` }
+                  : { backgroundImage: `url(${selectedAvatar.url})` }
               }
             ></div>
           </div>
@@ -60,6 +72,7 @@ const Avatar = ({ selectedGender }) => {
               ? maleAvatars.map((image) => {
                   return (
                     <div
+                      onClick={(e) => handleAvatarChange(e, image)}
                       key={image.url}
                       className="avatar__image"
                       style={{ backgroundImage: `url(${image.url})` }}
@@ -69,6 +82,7 @@ const Avatar = ({ selectedGender }) => {
               : femaleAvatars.map((image) => {
                   return (
                     <div
+                      onClick={(e) => handleAvatarChange(e, image)}
                       key={image.url}
                       className="avatar__image"
                       style={{ backgroundImage: `url(${image.url})` }}

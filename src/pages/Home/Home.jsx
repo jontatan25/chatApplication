@@ -3,7 +3,7 @@ import "./style.css";
 
 import Avatar from "../../components/Avatar/Avatar";
 const Home = () => {
-  const [gender, setGender] = useState("ismale");
+  const [gender, setGender] = useState("");
 
   return (
     <>
@@ -21,7 +21,7 @@ const Home = () => {
                 <label className="register__label -flex" htmlFor="user">
                   Username
                 </label>
-                <input className="register__input" id="user" type="text" />
+                <input className="register__input" id="user" type="text" required/>
               </div>
               <div className="register__group -flex">
                 <label className="register__label -flex" htmlFor="country">
@@ -31,6 +31,7 @@ const Home = () => {
                   className="register__input"
                   name="country"
                   id="countryOption"
+                  required
                 ></select>
               </div>
               <div className="register__group -flex">
@@ -43,6 +44,7 @@ const Home = () => {
                   type="number"
                   min="1"
                   max="99"
+                  required
                 />
               </div>
               <div className="register__group -flex">
@@ -53,8 +55,8 @@ const Home = () => {
                     name="gender"
                     value="ismale"
                     type="radio"
-                    checked={gender === "ismale"?"checked" : ""}
                     onChange={(e) => setGender(e.target.value)}
+                    required
                   />
                   <label
                     className="register__input__gender -title"
@@ -68,6 +70,7 @@ const Home = () => {
                     value="isfemale"
                     type="radio"
                     onChange={(e) => setGender(e.target.value)}
+                    required
                   />
                   <label
                     className="register__input__gender -title"

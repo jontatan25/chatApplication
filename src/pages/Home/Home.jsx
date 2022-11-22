@@ -53,7 +53,7 @@ const Home = () => {
                     name="gender"
                     value="ismale"
                     type="radio"
-                    checked="checked"
+                    checked={gender === "ismale"?"checked" : ""}
                     onChange={(e) => setGender(e.target.value)}
                   />
                   <label
@@ -71,7 +71,7 @@ const Home = () => {
                   />
                   <label
                     className="register__input__gender -title"
-                    htmlFor="male"
+                    htmlFor="female"
                   >
                     Female
                   </label>

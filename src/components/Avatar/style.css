@@ -1,7 +1,8 @@
 .avatar__dropdown {
   position: relative;
-  width: 100px;
-  padding: 8px 16px;
+  width: 115px;
+  justify-content: center;
+
   background-color: #ffffff;
   border-radius: 5px;
   transition: all 0.3s ease;
@@ -9,20 +10,23 @@
   -webkit-box-shadow: 0px 2px 0px 1px rgba(242, 242, 242, 1);
   -moz-box-shadow: 0px 2px 0px 1px rgba(242, 242, 242, 1);
   box-shadow: 0px 2px 0px 1px rgba(242, 242, 242, 1);
+  border: none;
 }
 
 .avatar__dropdown:hover {
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   transform: translateY(2px);
   cursor: pointer;
 }
+.avatar__dropdown:active {
+ filter:brightness(95%)
+}
 
 .avatar__container {
-  flex-grow: 1;
   height: 100%;
 }
 .avatar__image {
-  width: 88px;
+  width: 75px;
   height: 69px;
   background-size: auto 100%;
   background-repeat: no-repeat;
@@ -35,16 +39,26 @@
 
   left: 0;
   width: 200%;
-  height: 500%;
-  border: 1px solid #d1d1d1;
+  max-height: 0;
+  overflow: hidden;
+
   border-radius: 5px;
   bottom: 100%;
 
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   background-color: white;
+  transition: max-height 0.5s ease;
+  /* cubic-bezier(0, 1, 0, 1); */
 }
 
 .avatar__options .avatar__image:hover {
-    background-color: #F1F1F1;
-  }
+  background-color: #f1f1f1;
+}
+
+.avatar__options[aria-expanded="true"] {
+  padding: 5px;
+  border: 1px solid #d1d1d1;
+  max-height: 450%;
+}

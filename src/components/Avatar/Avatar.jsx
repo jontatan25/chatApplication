@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 
 import avatarBackgrounds from "./ImgModule";
-
+import nullAvatar from "../../img/avatars/none.png"
 import sortDown from "../../img/sort-down.png";
 
 const Avatar = ({ selectedGender }) => {
@@ -10,7 +10,7 @@ const Avatar = ({ selectedGender }) => {
   const [showAvatar, setShowAvatar] = useState(false);
   const [maleAvatars, setMaleAvatars] = useState([]);
   const [femaleAvatars, setFemaleAvatars] = useState([]);
-  const [selectedAvatar, setSelectedAvatar] = useState([]);
+  const [selectedAvatar, setSelectedAvatar] = useState([nullAvatar]);
 
   const toogleAvatar = (e) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ const Avatar = ({ selectedGender }) => {
     setSelectedAvatar(img);
   };
   return (
-    <>
+    <div className="avatar__register__container">
       {!loading ? (
         <button
           className="avatar__dropdown -flex -acenter"
@@ -57,7 +57,7 @@ const Avatar = ({ selectedGender }) => {
               className="avatar__image"
               style={
                 !selectedGender
-                  ? { backgroundImage: `url(${null})` }
+                  ? { backgroundImage: `url(${nullAvatar})` }
                   : { backgroundImage: `url(${selectedAvatar.url})` }
               }
             ></div>
@@ -94,7 +94,7 @@ const Avatar = ({ selectedGender }) => {
       ) : (
         <h3>Loading ...</h3>
       )}
-    </>
+    </div>
   );
 };
 

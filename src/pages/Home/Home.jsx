@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./style.css";
 
 import Avatar from "../../components/Avatar/Avatar";
+import loginIcon from "../../img/login-icon.png"
 const Home = () => {
   const [gender, setGender] = useState("");
 
@@ -80,12 +81,13 @@ const Home = () => {
                   </label>
                 </div>
               </div>
-              <div className="register__group register__avatar -flex">
+              <div className="register__group register__avatar -flex -acenter">
                 <span className="register__label -flex">Avatar</span>
                 <Avatar selectedGender={gender}/>
               </div>
               {/* CAPTCHA */}
-              <button className="-btn-primary" type="submit">
+              <button className="register__submit -btn-primary" type="submit">
+                <img className="register__login__icon" src={loginIcon} alt="login" />
                 LOGIN
               </button>
             </form>

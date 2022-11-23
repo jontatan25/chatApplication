@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
-import { useParams, useNavigate } from "react-router-dom";
 import "./style.css";
+import sendChatImg from "../../img/send-chat-icon.png"
+
 const socket = io.connect("https://jhonndevelopershop.herokuapp.com");
 
 const Chat = () => {
@@ -11,7 +12,6 @@ const Chat = () => {
   const token = JSON.parse(localStorage.getItem("user"));
   const inputRef = useRef(null);
   const msgListref = useRef(null);
-  //   const navigate = useNavigate();
 
   const getInfo = async () => {
     try {
@@ -99,8 +99,9 @@ const Chat = () => {
             autoComplete="off"
             name="message"
           />
-          <button type="submit" className="messages_btn">
-            Send
+          <button type="submit" className="messages_btn -title -btn-primary -flex -acenter">
+            <img className="send__message" src={sendChatImg} alt="send message" />
+            SEND
           </button>
         </form>
       </div>

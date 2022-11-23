@@ -5,7 +5,7 @@ import Home from "./pages/Home/Home";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 
 import "./style.css";
-import ChatJD from "./pages/Home/ChatJD/ChatJD";
+import ChatJD from "./pages/ChatJD/ChatJD";
 
 function App() {
   return (

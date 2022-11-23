@@ -1,5 +1,5 @@
 .messagesContainer{
-  height: 85vh;
+  height: calc(100% - 50px);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -45,38 +45,47 @@
   left: 0;
   right: 0;
   display: flex;
-  height: 3rem;
+  height: 68px;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
-  border-radius: 10px;
+  border-radius: 0 0 0 4px;
+  display: flex;
+  align-items: center;
 }
 #input {
+  height:54px;
   border: none;
   padding: 0 1rem;
-  flex-grow: 1;
-  border-radius: 2rem;
-  margin: 0.25rem;
+  flex: 1;
+  border-radius: 20px 0 0 20px;
 }
 #input:focus {
   outline: none;
 }
 .messages_btn {
-  background: #333;
-  border: none;
-  padding: 0 1rem;
-  margin: 0.25rem;
-  border-radius: 3px;
-  outline: none;
+  height:54px;
+  flex: 0.30;
+  justify-content: center;
+  background: #64b1ce;
+  border: 1px solid #2c99c5;
+
+  border-radius: 0 20px 20px 0;
   color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  border-width: 0 1px 4px;
+  transition: all 0.2s ease-out;
 }
 
 .messages_btn:hover{
-  background: rgb(77, 77, 77);
+  border-width: 0 1px 1px;
   cursor: pointer;
+  background: #2688ae;
 }
 .messages_btn:active{
-  transform: scale(.95);
   box-shadow: 0 3px 15px -2px;
 }
 
-
+.send__message {
+  margin-right: 5px;
+}

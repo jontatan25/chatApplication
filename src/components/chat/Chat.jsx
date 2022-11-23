@@ -28,7 +28,7 @@ const Chat = () => {
 
   let handleSumbitMessage = async (e) => {
     e.preventDefault();
-    var message = { username: "SampleUser1", message: inputRef.current.value };
+    var message = { username: "SampleUseR", message: inputRef.current.value };
     try {
       var res = await axios.post(
         "https://jhonndevshop.vercel.app/api/messages",

@@ -1,11 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 
 import Avatar from "../../components/Avatar/Avatar";
-import loginIcon from "../../img/login-icon.png"
-const Home = () => {
-  const [gender, setGender] = useState("");
 
+import loginIcon from "../../img/login-icon.png";
+import { getCountriesInfo } from "../../utils/utils";
+const Home = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [countriesInfo, setCountriesInfo] = useState("");
+  const [userInfo, setUserInfo] = useState([
+    {
+      username: "",
+      country: "",
+      Age: "",
+      gender: "",
+      avatar: "",
+    },
+  ]);
+  const handleChange = (e) => {
+    console.log(e.target.name);
+  };
+
+  const getCountries = async () => {
+    try {
+      const res = await getCountriesInfo();
+      setCountriesInfo(res);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      console.log(error)
+    }
+  };
+  useEffect(() => {
+    getCountries();
+  }, []);
+  useEffect(() => {
+    console.log(countriesInfo);
+  }, [countriesInfo]);
   return (
     <>
       <section>
@@ -22,7 +54,14 @@ const Home = () => {
                 <label className="register__label -flex" htmlFor="user">
                   Username
                 </label>
-                <input className="register__input" id="user" type="text" required/>
+                <input
+                  className="register__input"
+                  id="user"
+                  name="username"
+                  type="text"
+                  onChange={(e) => handleChange(e)}
+                  required
+                />
               </div>
               <div className="register__group -flex">
                 <label className="register__label -flex" htmlFor="country">
@@ -32,6 +71,7 @@ const Home = () => {
                   className="register__input"
                   name="country"
                   id="countryOption"
+                  onChange={(e) => handleChange(e)}
                   required
                 ></select>
               </div>
@@ -42,9 +82,11 @@ const Home = () => {
                 <input
                   className="register__input"
                   id="age"
+                  name="age"
                   type="number"
                   min="1"
                   max="99"
+                  onChange={(e) => handleChange(e)}
                   required
                 />
               </div>
@@ -56,7 +98,7 @@ const Home = () => {
                     name="gender"
                     value="ismale"
                     type="radio"
-                    onChange={(e) => setGender(e.target.value)}
+                    onChange={(e) => handleChange(e)}
                     required
                   />
                   <label
@@ -70,7 +112,7 @@ const Home = () => {
                     name="gender"
                     value="isfemale"
                     type="radio"
-                    onChange={(e) => setGender(e.target.value)}
+                    onChange={(e) => handleChange(e)}
                     required
                   />
                   <label
@@ -82,12 +124,18 @@ const Home = () => {
                 </div>
               </div>
               <div className="register__group register__avatar -flex -acenter">
-                <span className="register__label -flex">Choose your Avatar</span>
-                <Avatar selectedGender={gender}/>
+                <span className="register__label -flex">
+                  Choose your Avatar
+                </span>
+                {/* <Avatar selectedGender={gender} /> */}
               </div>
               {/* CAPTCHA */}
               <button className="register__submit -btn-primary" type="submit">
-                <img className="register__login__icon" src={loginIcon} alt="login" />
+                <img
+                  className="register__login__icon"
+                  src={loginIcon}
+                  alt="login"
+                />
                 LOGIN
               </button>
             </form>

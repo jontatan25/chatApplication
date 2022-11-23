@@ -5,11 +5,12 @@ import loginIcon from "../../img/login-icon.png";
 import { getCountriesInfo } from "../../utils/utils";
 
 import Avatar from "../../components/Avatar/Avatar";
+import nullAvatar from "../../img/avatars/none.png"
 import CountryOption from "../../components/CountryOption.jsx/CountryOption";
 import { useChatContext } from "../../context/ChatContextProvider";
 
 const Home = () => {
-
+ 
   const { isLoggedIn } = useChatContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -20,9 +21,10 @@ const Home = () => {
       country: "",
       age: "",
       gender: "",
-      avatar: "",
+      avatar: nullAvatar,
     },
   ]);
+  const { username, country, age, gender, avatar } = userInfo[0];
   const handleChange = (e) => {
     const updatedArray = [...userInfo];
     updatedArray[0][e.target.name] = e.target.value;
@@ -44,6 +46,14 @@ const Home = () => {
     getCountries();
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(username)
+    console.log(country)
+    console.log(age)
+    console.log(gender)
+    console.log(avatar)
+  };
   return (
     <>
       <section>
@@ -55,7 +65,7 @@ const Home = () => {
           <h3 className="home__subtitle">JD Chat Rooms</h3>
           <div className="home__register">
             <h4 className="register__title">Join Chat</h4>
-            <form>
+            <form onSubmit={e=> handleSubmit(e)}>
               <div className="register__group -flex">
                 <label className="register__label -flex" htmlFor="user">
                   Username
@@ -150,7 +160,7 @@ const Home = () => {
                 <span className="register__label -flex">
                   Choose your Avatar
                 </span>
-                <Avatar userInfo={userInfo} />
+                <Avatar userInfo={userInfo} setUserInfo={setUserInfo}/>
               </div>
               {/* CAPTCHA */}
               <button className="register__submit -btn-primary" type="submit">

@@ -6,19 +6,23 @@ import avatarBackgrounds from "./ImgModule";
 import nullAvatar from "../../img/avatars/none.png"
 import sortDown from "../../img/sort-down.png";
 
-const Avatar = ({ userInfo}) => {
+const Avatar = ({ userInfo, setUserInfo }) => {
   const [loading, setLoading] = useState(true);
   const [showAvatar, setShowAvatar] = useState(false);
   const [maleAvatars, setMaleAvatars] = useState([]);
   const [femaleAvatars, setFemaleAvatars] = useState([]);
-  const [selectedAvatar, setSelectedAvatar] = useState([nullAvatar]);
-  const selectedGender = userInfo[0].gender
-
+  const selectedGender = userInfo[0].gender;
+  
   const toogleAvatar = (e) => {
     e.preventDefault();
     setShowAvatar(!showAvatar);
   };
-  
+
+  const useNewAvatar = (newAvatar) => {
+    const updatedAvatar = [...userInfo];
+    updatedAvatar[0].avatar = newAvatar.url
+    setUserInfo(updatedAvatar);
+  };
   useEffect(() => {
     const maleArray = [];
     const femaleArray = [];
@@ -33,17 +37,15 @@ const Avatar = ({ userInfo}) => {
   }, []);
   useEffect(() => {
     if (!loading) {
-      if (selectedGender === "ismale") setSelectedAvatar(maleAvatars[0]);
-      else if (selectedGender === "isfemale")
-        setSelectedAvatar(femaleAvatars[0]);
+      if (selectedGender === "ismale") useNewAvatar(maleAvatars[0]);
+      else if (selectedGender === "isfemale") useNewAvatar(femaleAvatars[0]);
     }
   }, [loading, selectedGender]);
 
   const handleAvatarChange = (e, img) => {
     e.preventDefault();
-    setSelectedAvatar(img);
+    useNewAvatar(img);
   };
-
 
   return (
     <div className="avatar__register__container">
@@ -59,7 +61,7 @@ const Avatar = ({ userInfo}) => {
               style={
                 !selectedGender
                   ? { backgroundImage: `url(${nullAvatar})` }
-                  : { backgroundImage: `url(${selectedAvatar.url})` }
+                  : { backgroundImage: `url(${userInfo[0].avatar})` }
               }
             ></div>
           </div>

@@ -19,7 +19,7 @@ const Home = () => {
       username: "",
       country: "",
       age: "",
-      gender: "one",
+      gender: "",
       avatar: "",
     },
   ]);

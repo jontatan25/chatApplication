@@ -45,10 +45,7 @@ const Chat = () => {
       console.log(error);
     }
   };
-
-  // useEffect(() => {
-  //   if(!isLoggedIn) navigate("/");
-  // });
+  
   useEffect(() => {
     getInfo();
   }, []);

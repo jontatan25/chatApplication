@@ -82,7 +82,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="register__group register__avatar -flex -acenter">
-                <span className="register__label -flex">Avatar</span>
+                <span className="register__label -flex">Choose your Avatar</span>
                 <Avatar selectedGender={gender}/>
               </div>
               {/* CAPTCHA */}

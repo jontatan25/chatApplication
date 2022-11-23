@@ -3,12 +3,12 @@ import axios from "axios";
 import io from "socket.io-client";
 import "./style.css";
 import sendChatImg from "../../img/send-chat-icon.png";
-import { useNavigate } from "react-router-dom";
+
 const socket = io.connect("https://jhonndevelopershop.herokuapp.com");
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
-  const navigate = useNavigate();
+
   const token = JSON.parse(localStorage.getItem("user"));
   const inputRef = useRef(null);
   const msgListref = useRef(null);

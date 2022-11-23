@@ -1,9 +1,23 @@
-import React from "react";
+import React,{useEffect} from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import Chat from "../../components/Chat/Chat";
 import "./style.css";
 
 import usersImg from "../../img/people-icon.png";
+import { useChatContext } from "../../context/ChatContextProvider";
+
+
 const ChatJD = () => {
+
+  const {isLoggedIn} = useChatContext()
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/")
+    }
+  },[isLoggedIn])
   return (
     <div className="chat__container -flex">
       <div className="chat__window">

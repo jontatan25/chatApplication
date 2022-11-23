@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
+
 import "./style.css";
-
-import Avatar from "../../components/Avatar/Avatar";
-
 import loginIcon from "../../img/login-icon.png";
 import { getCountriesInfo } from "../../utils/utils";
+
+import Avatar from "../../components/Avatar/Avatar";
 import CountryOption from "../../components/CountryOption.jsx/CountryOption";
+import { useChatContext } from "../../context/ChatContextProvider";
+
 const Home = () => {
+
+  const { isLoggedIn } = useChatContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [countriesInfo, setCountriesInfo] = useState("");
@@ -17,13 +21,12 @@ const Home = () => {
       age: "",
       gender: "one",
       avatar: "",
-      isLoggedIn: false
     },
   ]);
   const handleChange = (e) => {
     const updatedArray = [...userInfo];
     updatedArray[0][e.target.name] = e.target.value;
-    
+
     setUserInfo(updatedArray);
   };
 
@@ -147,7 +150,7 @@ const Home = () => {
                 <span className="register__label -flex">
                   Choose your Avatar
                 </span>
-                <Avatar userInfo={userInfo}/>
+                <Avatar userInfo={userInfo} />
               </div>
               {/* CAPTCHA */}
               <button className="register__submit -btn-primary" type="submit">

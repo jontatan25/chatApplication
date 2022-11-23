@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
+
 import "./style.css";
 
 import avatarBackgrounds from "./ImgModule";
 import nullAvatar from "../../img/avatars/none.png"
 import sortDown from "../../img/sort-down.png";
 
-const Avatar = ({ selectedGender }) => {
+const Avatar = ({ userInfo}) => {
   const [loading, setLoading] = useState(true);
   const [showAvatar, setShowAvatar] = useState(false);
   const [maleAvatars, setMaleAvatars] = useState([]);
   const [femaleAvatars, setFemaleAvatars] = useState([]);
   const [selectedAvatar, setSelectedAvatar] = useState([nullAvatar]);
+  const selectedGender = userInfo[0].gender
 
   const toogleAvatar = (e) => {
     e.preventDefault();
     setShowAvatar(!showAvatar);
   };
-
+  
   useEffect(() => {
     const maleArray = [];
     const femaleArray = [];
@@ -36,14 +38,13 @@ const Avatar = ({ selectedGender }) => {
         setSelectedAvatar(femaleAvatars[0]);
     }
   }, [loading, selectedGender]);
-  useEffect(() => {
-    console.log(selectedAvatar);
-  }, [selectedAvatar]);
 
   const handleAvatarChange = (e, img) => {
     e.preventDefault();
     setSelectedAvatar(img);
   };
+
+
   return (
     <div className="avatar__register__container">
       {!loading ? (

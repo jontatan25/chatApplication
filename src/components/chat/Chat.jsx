@@ -2,13 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import "./style.css";
-import sendChatImg from "../../img/send-chat-icon.png"
-
+import sendChatImg from "../../img/send-chat-icon.png";
+import { useNavigate } from "react-router-dom";
 const socket = io.connect("https://jhonndevelopershop.herokuapp.com");
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
-
+  const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("user"));
   const inputRef = useRef(null);
   const msgListref = useRef(null);
@@ -22,8 +22,8 @@ const Chat = () => {
       setMessages(res.data.messages);
       return;
     } catch (error) {
-          console.log(error);
-      }
+      console.log(error);
+    }
   };
 
   let handleSumbitMessage = async (e) => {
@@ -46,6 +46,13 @@ const Chat = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if(!isLoggedIn) navigate("/");
+  // });
+  useEffect(() => {
+    getInfo();
+  }, []);
+
   useEffect(() => {
     const eventListener = (newMessage) => {
       console.log(newMessage);
@@ -56,10 +63,6 @@ const Chat = () => {
     socket.on("new_message", eventListener);
     return () => socket.off("new_message", eventListener);
   }, [messages]);
-
-  useEffect(() => {
-    getInfo();
-  }, []);
 
   useEffect(() => {
     if (msgListref && msgListref.current) {
@@ -99,8 +102,15 @@ const Chat = () => {
             autoComplete="off"
             name="message"
           />
-          <button type="submit" className="messages_btn -title -btn-primary -flex -acenter">
-            <img className="send__message" src={sendChatImg} alt="send message" />
+          <button
+            type="submit"
+            className="messages_btn -title -btn-primary -flex -acenter"
+          >
+            <img
+              className="send__message"
+              src={sendChatImg}
+              alt="send message"
+            />
             SEND
           </button>
         </form>

@@ -5,6 +5,7 @@ import Avatar from "../../components/Avatar/Avatar";
 
 import loginIcon from "../../img/login-icon.png";
 import { getCountriesInfo } from "../../utils/utils";
+import CountryOption from "../../components/CountryOption.jsx/CountryOption";
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -13,13 +14,17 @@ const Home = () => {
     {
       username: "",
       country: "",
-      Age: "",
-      gender: "",
+      age: "",
+      gender: "one",
       avatar: "",
+      isLoggedIn: false
     },
   ]);
   const handleChange = (e) => {
-    console.log(e.target.name);
+    const updatedArray = [...userInfo];
+    updatedArray[0][e.target.name] = e.target.value;
+    
+    setUserInfo(updatedArray);
   };
 
   const getCountries = async () => {
@@ -29,15 +34,13 @@ const Home = () => {
       setLoading(false);
     } catch (error) {
       setError(error);
-      console.log(error)
+      console.log(error);
     }
   };
   useEffect(() => {
     getCountries();
   }, []);
-  useEffect(() => {
-    console.log(countriesInfo);
-  }, [countriesInfo]);
+
   return (
     <>
       <section>
@@ -68,12 +71,29 @@ const Home = () => {
                   Country
                 </label>
                 <select
-                  className="register__input"
+                  className="register__input register__option"
                   name="country"
                   id="countryOption"
                   onChange={(e) => handleChange(e)}
                   required
-                ></select>
+                >
+                  <option className="register__option" value="">
+                    -Please choose your Country
+                  </option>
+                  {loading ? (
+                    <option>Loading . . .</option>
+                  ) : error ? (
+                    <option>Something went wrong</option>
+                  ) : (
+                    countriesInfo &&
+                    countriesInfo.map((country) => (
+                      <CountryOption
+                        key={country.iso3}
+                        countryName={country.name}
+                      />
+                    ))
+                  )}
+                </select>
               </div>
               <div className="register__group -flex">
                 <label className="register__label -flex" htmlFor="age">
@@ -127,7 +147,7 @@ const Home = () => {
                 <span className="register__label -flex">
                   Choose your Avatar
                 </span>
-                {/* <Avatar selectedGender={gender} /> */}
+                <Avatar userInfo={userInfo}/>
               </div>
               {/* CAPTCHA */}
               <button className="register__submit -btn-primary" type="submit">

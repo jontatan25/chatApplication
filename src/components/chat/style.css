@@ -48,7 +48,7 @@
   height: 68px;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
-  border-radius: 0 0 0 4px;
+  border-radius: 0 0 4px 4px;
   display: flex;
   align-items: center;
 }

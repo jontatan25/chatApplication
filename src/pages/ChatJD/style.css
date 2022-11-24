@@ -69,6 +69,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  margin-right: 4px;
 }
 .-female {
   background-color: #ff8198
@@ -82,7 +83,7 @@
  height: 100%;
  background-size: auto 100%;
  background-position: center center;
- margin-right: 3px;
+ margin-right: 6px;
 }
 
 .userInfo__name {

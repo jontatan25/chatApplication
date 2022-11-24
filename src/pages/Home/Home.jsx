@@ -20,6 +20,7 @@ const Home = () => {
     {
       username: "",
       country: "",
+      flag: "",
       age: "",
       gender: "",
       avatar: nullAvatar,
@@ -30,8 +31,16 @@ const Home = () => {
   const handleChange = (e) => {
     const updatedArray = [...userInfo];
     updatedArray[0][e.target.name] = e.target.value;
-
     setUserInfo(updatedArray);
+    if (e.target.name === "country") {
+      const getUserCountry = countriesInfo.filter(
+        (country) => country.name === e.target.value
+      );
+      const userFlag = getUserCountry[0].flag;
+      const updatedArray = [...userInfo];
+      updatedArray[0].flag = userFlag;
+      setUserInfo(updatedArray);
+    }
   };
 
   const getCountries = async () => {
@@ -45,6 +54,12 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    if (countriesInfo) {
+      console.log(userInfo[0]);
+    }
+  }, [userInfo]);
+
   const saveUser = async (postedInfo) => {
     try {
       const res = await axios.post(
@@ -54,9 +69,11 @@ const Home = () => {
       if (res.data.success === true) {
         setIsLoggedIn(true);
         setUser(postedInfo);
-        localStorage.setItem('localUserInfo',JSON.stringify(postedInfo));
-        navigate("/chat")
-      } else {console.log("something Went wrong",res.data)}
+        localStorage.setItem("localUserInfo", JSON.stringify(postedInfo));
+        navigate("/chat");
+      } else {
+        console.log("something Went wrong", res.data);
+      }
     } catch (error) {
       console.log(error);
     }

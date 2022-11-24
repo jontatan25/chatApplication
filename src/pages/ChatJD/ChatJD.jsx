@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -8,21 +8,26 @@ import "./style.css";
 import usersImg from "../../img/people-icon.png";
 import { useChatContext } from "../../context/ChatContextProvider";
 
-
 const ChatJD = () => {
+  const { isLoggedIn, setUser,setIsLoggedIn } = useChatContext();
+  const navigate = useNavigate();
+  
+const localUserInfo= JSON.parse(localStorage.getItem("localUserInfo"))
 
-  const {isLoggedIn} = useChatContext()
-  const navigate = useNavigate()
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isLoggedIn && !localUserInfo) {
       navigate("/")
-    }
-  },[isLoggedIn])
+    } else if (!isLoggedIn && localUserInfo) {
+      setUser(localUserInfo);
+      setIsLoggedIn(true);
+    } 
+  }, [isLoggedIn]);
+
   return (
     <div className="chat__container -flex">
       <div className="chat__window">
         <div className="chat__window__title -title -flex">Chat</div>
-        <Chat />
+        <Chat user={localUserInfo} />
       </div>
       <div className="chat__users">
         <div className="chat__window__title -users-title -title -flex">

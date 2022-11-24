@@ -5,13 +5,14 @@ import loginIcon from "../../img/login-icon.png";
 import { getCountriesInfo } from "../../utils/utils";
 
 import Avatar from "../../components/Avatar/Avatar";
-import nullAvatar from "../../img/avatars/none.png"
+import nullAvatar from "../../img/avatars/none.png";
 import CountryOption from "../../components/CountryOption.jsx/CountryOption";
 import { useChatContext } from "../../context/ChatContextProvider";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
- 
-  const { isLoggedIn } = useChatContext();
+  const { isLoggedIn, setIsLoggedIn, setUser } = useChatContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [countriesInfo, setCountriesInfo] = useState("");
@@ -25,6 +26,7 @@ const Home = () => {
     },
   ]);
   const { username, country, age, gender, avatar } = userInfo[0];
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const updatedArray = [...userInfo];
     updatedArray[0][e.target.name] = e.target.value;
@@ -42,17 +44,33 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  const saveUser = async (postedInfo) => {
+    try {
+      const res = await axios.post(
+        "http://192.168.0.104:8080/api/messages/register",
+        postedInfo
+      );
+      if (res.data.success === true) {
+        setIsLoggedIn(true);
+        setUser(postedInfo);
+        localStorage.setItem('localUserInfo',JSON.stringify(postedInfo));
+        navigate("/chat")
+      } else {console.log("something Went wrong",res.data)}
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getCountries();
   }, []);
+  // useEffect(() => {
+  //   console.log(isLoggedIn);
+  // }, [isLoggedIn]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username)
-    console.log(country)
-    console.log(age)
-    console.log(gender)
-    console.log(avatar)
+    saveUser(userInfo[0]);
   };
   return (
     <>
@@ -65,7 +83,7 @@ const Home = () => {
           <h3 className="home__subtitle">JD Chat Rooms</h3>
           <div className="home__register">
             <h4 className="register__title">Join Chat</h4>
-            <form onSubmit={e=> handleSubmit(e)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <div className="register__group -flex">
                 <label className="register__label -flex" htmlFor="user">
                   Username
@@ -160,7 +178,7 @@ const Home = () => {
                 <span className="register__label -flex">
                   Choose your Avatar
                 </span>
-                <Avatar userInfo={userInfo} setUserInfo={setUserInfo}/>
+                <Avatar userInfo={userInfo} setUserInfo={setUserInfo} />
               </div>
               {/* CAPTCHA */}
               <button className="register__submit -btn-primary" type="submit">

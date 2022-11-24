@@ -5,12 +5,15 @@ const ChatContext = createContext([]);
 export const useChatContext = () => useContext(ChatContext);
 
 const ChatContextProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState("");
   return (
     <ChatContext.Provider
       value={{
         isLoggedIn,
-        setIsLoggedin,
+        setIsLoggedIn,
+        user,
+        setUser,
       }}
     >
       {children}

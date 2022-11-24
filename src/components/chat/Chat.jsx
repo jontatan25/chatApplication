@@ -6,10 +6,10 @@ import sendChatImg from "../../img/send-chat-icon.png";
 
 const socket = io.connect("https://jhonndevelopershop.herokuapp.com");
 
-const Chat = () => {
+const Chat = ({ user }) => {
   const [messages, setMessages] = useState([]);
 
-  const token = JSON.parse(localStorage.getItem("user"));
+  // const token = JSON.parse(localStorage.getItem("user"));
   const inputRef = useRef(null);
   const msgListref = useRef(null);
 
@@ -32,10 +32,10 @@ const Chat = () => {
     try {
       var res = await axios.post(
         "https://jhonndevshop.vercel.app/api/messages",
-        message,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        message
+        // {
+        //   headers: { Authorization: `Bearer ${token}` },
+        // }
       );
       if ((res.data.success = true)) {
         socket.emit("user_message", message);
@@ -45,7 +45,7 @@ const Chat = () => {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     getInfo();
   }, []);
@@ -71,6 +71,9 @@ const Chat = () => {
       });
     }
   }, [msgListref, messages]);
+useEffect(() => {
+  console.log(user)
+}, [])
 
   return (
     <>
@@ -90,6 +93,9 @@ const Chat = () => {
           ) : (
             <li className="messages__user">No messages</li>
           )}
+          <li className="messages__user">
+            Welcome {user.username} !!
+          </li>
         </ul>
         <form id="form" onSubmit={handleSumbitMessage}>
           <input

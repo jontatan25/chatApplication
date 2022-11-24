@@ -28,7 +28,7 @@
   border-radius: 5px;
   position: relative;
   background-color: #e5e5e5;
-  margin-bottom: 18px;
+  margin: 0 18px 15px 0;
 }
 .messages__avatar {
   width: 50px;

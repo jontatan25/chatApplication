@@ -26,7 +26,7 @@ const Home = () => {
       avatar: nullAvatar,
     },
   ]);
-  const { username, country, age, gender, avatar } = userInfo[0];
+
   const navigate = useNavigate();
   const handleChange = (e) => {
     const updatedArray = [...userInfo];
@@ -78,6 +78,7 @@ const Home = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getCountries();
   }, []);

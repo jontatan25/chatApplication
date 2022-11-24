@@ -1,20 +1,41 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useChatContext } from "../../context/ChatContextProvider";
 
 import Chat from "../../components/Chat/Chat";
 import "./style.css";
 
+
+import axios from "axios";
 import usersImg from "../../img/people-icon.png";
-import { useChatContext } from "../../context/ChatContextProvider";
 
 const ChatJD = () => {
   const { isLoggedIn, setIsLoggedIn } = useChatContext();
+  const [users,setUsers] = useState([])
 
   const navigate = useNavigate();
 
   const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
 
+  const getUsers = async () => {
+    try {
+      const {data} = await axios.get(
+        "http://192.168.0.104:8080/api/messages/chatusers"
+      );
+      if (data.success === true) {
+        setUsers(data.users)
+      } else {console.log(data)}
+    } catch (error) {
+      console.log(error)
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  useEffect(() => {
+    console.log(users)
+  },[users])
   useEffect(() => {
     if (!isLoggedIn && !localUserInfo) {
       navigate("/");

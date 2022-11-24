@@ -47,3 +47,53 @@
   height: 30px;
   margin-right:5px;
 }
+
+.chat__users__active {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow-y: scroll;
+}
+
+.chat__userInfo {
+  height: 34.6px;
+  border-bottom: 1px solid rgba(0,0,0,.20);
+  padding: 8.8px 20px;
+}
+.chat__userInfo__details {
+  flex:1;
+  color: white;
+  font-size: 17px;
+  font-weight: 300;
+}
+.userInfo__gender {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+.-female {
+  background-color: #ff8198
+}
+.-male {
+  background-color: #75caeb
+}
+
+.userInfo__avatar {
+ width: 30px;
+ height: 100%;
+ background-size: auto 100%;
+ background-position: center center;
+ margin-right: 3px;
+}
+
+.userInfo__name {
+ flex: 10;
+}
+
+.chat__userInfo__flag {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-size: auto 100%;
+  background-position: center center;
+}
+

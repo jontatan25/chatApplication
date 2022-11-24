@@ -64,9 +64,6 @@ const Home = () => {
   useEffect(() => {
     getCountries();
   }, []);
-  // useEffect(() => {
-  //   console.log(isLoggedIn);
-  // }, [isLoggedIn]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

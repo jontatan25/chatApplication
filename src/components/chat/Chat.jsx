@@ -71,9 +71,6 @@ const Chat = ({ user }) => {
       });
     }
   }, [msgListref, messages]);
-useEffect(() => {
-  console.log(user)
-}, [])
 
   return (
     <>

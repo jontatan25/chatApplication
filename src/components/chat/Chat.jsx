@@ -15,10 +15,7 @@ const Chat = ({ user }) => {
 
   const getInfo = async () => {
     try {
-      const res = await axios.get(
-        "https://jhonndevelopershop.herokuapp.com/messages",
-        {}
-      );
+      const res = await axios.get("http://localhost:8080/api/messages", {});
       setMessages(res.data.messages);
       return;
     } catch (error) {
@@ -28,17 +25,22 @@ const Chat = ({ user }) => {
 
   let handleSumbitMessage = async (e) => {
     e.preventDefault();
-    var message = { username: "SampleUseR", message: inputRef.current.value };
+
+    var message = {
+      username: user.username,
+      message: inputRef.current.value,
+      avatar: user.avatar,
+    };
     try {
       var res = await axios.post(
-        "https://jhonndevshop.vercel.app/api/messages",
+        "http://localhost:8080/api/messages",
         message
         // {
         //   headers: { Authorization: `Bearer ${token}` },
         // }
       );
       if ((res.data.success = true)) {
-        socket.emit("user_message", message);
+        socket.emit("user_message", res.data.body);
         inputRef.current.value = "";
       }
     } catch (error) {
@@ -74,25 +76,27 @@ const Chat = ({ user }) => {
 
   return (
     <>
-      <div className="messagesContainer">
+      <div className="messagesContainer -flex">
         <ul ref={msgListref} id="messages">
           {messages ? (
             messages.map((messageInfo) => {
               return (
                 <li key={messageInfo.id} className="messages__user">
+                  <div className="messages__avatar"style={{ backgroundImage: `url(${messageInfo.avatar})`}} ></div>
                   {messageInfo.username}:
-                  <span key={messageInfo.id} className="messages__user-message">
+                  <span className="messages__user-message">
                     {messageInfo.message}
                   </span>
+                  <span className="messages__time">{messageInfo.date}</span>
                 </li>
               );
             })
           ) : (
-            <li className="messages__user">No messages</li>
+            <li className="messages__user">
+              There is No messages. Be the First one to say Hi!
+            </li>
           )}
-          <li className="messages__user">
-            Welcome {user.username} !!
-          </li>
+          <li className="messages__user">Welcome {user.username} !!</li>
         </ul>
         <form id="form" onSubmit={handleSumbitMessage}>
           <input

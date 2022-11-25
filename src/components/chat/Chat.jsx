@@ -4,10 +4,11 @@ import io from "socket.io-client";
 import "./style.css";
 import sendChatImg from "../../img/send-chat-icon.png";
 
-const socket = io.connect("https://jhonndevelopershop.herokuapp.com");
+const socket = io.connect("http://localhost:8080");
 
-const Chat = ({ user }) => {
+const Chat = ({ user, users, setUsers }) => {
   const [messages, setMessages] = useState([]);
+  const [isConnected, setIsConnected] = useState(socket.connected);
 
   // const token = JSON.parse(localStorage.getItem("user"));
   const inputRef = useRef(null);
@@ -53,6 +54,8 @@ const Chat = ({ user }) => {
   }, []);
 
   useEffect(() => {
+   
+
     const eventListener = (newMessage) => {
       console.log(newMessage);
       if (messages) {
@@ -60,9 +63,31 @@ const Chat = ({ user }) => {
       } else setMessages([newMessage]);
     };
     socket.on("new_message", eventListener);
-    return () => socket.off("new_message", eventListener);
+    return () => {
+      socket.off("new_message", eventListener);
+    };
   }, [messages]);
-
+const addUser = (newuser) => {
+  const updatedUsers = [...users]
+  updatedUsers.push(newuser);
+  setUsers(updatedUsers)
+}
+  useEffect(() => {
+    socket.on("connect", () => {
+      setIsConnected(true);
+      socket.emit("new_user", user)
+    });
+    socket.on("disconnect", () => {
+      setIsConnected(false);
+    });
+    socket.on("new_user_connected", (user) => {
+      addUser(user)
+    });
+    return ()=> {
+      socket.off("connect");
+      socket.off("disconnect");
+    }
+  },[])
   useEffect(() => {
     if (msgListref && msgListref.current) {
       const element = msgListref.current;
@@ -74,6 +99,9 @@ const Chat = ({ user }) => {
     }
   }, [msgListref, messages]);
 
+  useEffect(() => {
+    console.log(users)
+  },[users])
   return (
     <>
       <div className="messagesContainer -flex">
@@ -82,7 +110,10 @@ const Chat = ({ user }) => {
             messages.map((messageInfo) => {
               return (
                 <li key={messageInfo.id} className="messages__user">
-                  <div className="messages__avatar"style={{ backgroundImage: `url(${messageInfo.avatar})`}} ></div>
+                  <div
+                    className="messages__avatar"
+                    style={{ backgroundImage: `url(${messageInfo.avatar})` }}
+                  ></div>
                   {messageInfo.username}:
                   <span className="messages__user-message">
                     {messageInfo.message}

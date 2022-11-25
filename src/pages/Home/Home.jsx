@@ -12,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { isLoggedIn, setIsLoggedIn, setUser } = useChatContext();
+  const {setIsLoggedIn, setUser } = useChatContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [countriesInfo, setCountriesInfo] = useState("");

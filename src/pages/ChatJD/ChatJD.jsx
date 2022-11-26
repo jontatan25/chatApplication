@@ -8,7 +8,6 @@ import "./style.css";
 import usersImg from "../../img/people-icon.png";
 
 const ChatJD = () => {
-  const { isLoggedIn, setIsLoggedIn } = useChatContext();
   const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
@@ -16,12 +15,10 @@ const ChatJD = () => {
   const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
 
   useEffect(() => {
-    if (!isLoggedIn && !localUserInfo) {
+    if (!localUserInfo) {
       navigate("/");
-    } else if (!isLoggedIn && localUserInfo) {
-      setIsLoggedIn(true);
-    }
-  }, [isLoggedIn]);
+    } 
+  }, [localUserInfo]);
 
   return (
     <>

@@ -26,8 +26,16 @@ const Home = () => {
       avatar: nullAvatar,
     },
   ]);
-
+  const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (localUserInfo) {
+      navigate("/chat");
+    } 
+  }, [localUserInfo]);
+  
   const handleChange = (e) => {
     const updatedArray = [...userInfo];
     updatedArray[0][e.target.name] = e.target.value;

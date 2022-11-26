@@ -4,15 +4,17 @@ import io from "socket.io-client";
 import "./style.css";
 import sendChatImg from "../../img/send-chat-icon.png";
 
-// const URL = "http://localhost:8080"
-const URL = "https://chatserver-s4bm.onrender.com"
+const URL = "http://localhost:8080"
+// const URL = "https://chatserver-s4bm.onrender.com"
 const socket = io.connect(URL);
 
 const Chat = ({ user, setUsers }) => {
   const [messages, setMessages] = useState([]);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [loadingMessages, setLoadingMessages] = useState(true);
+  const [loadingNewMessage,setLoadingNewMessage] = useState(false);
   const [messagesError, setMessagesError] = useState("");
+
 
   const inputRef = useRef(null);
   const msgListref = useRef(null);
@@ -22,7 +24,6 @@ const Chat = ({ user, setUsers }) => {
       const res = await axios.get(URL + "/api/messages", {});
       setMessages(res.data.messages);
       setLoadingMessages(false);
-      return;
     } catch (error) {
       setMessagesError(error);
       console.log(error);
@@ -31,7 +32,7 @@ const Chat = ({ user, setUsers }) => {
 
   let handleSumbitMessage = async (e) => {
     e.preventDefault();
-
+    setLoadingNewMessage(true)
     var message = {
       username: user.username,
       message: inputRef.current.value,
@@ -45,6 +46,7 @@ const Chat = ({ user, setUsers }) => {
       if ((res.data.success = true)) {
         socket.emit("user_message", res.data.body);
         inputRef.current.value = "";
+        setLoadingNewMessage(false)
       }
     } catch (error) {
       console.log(error);
@@ -141,17 +143,21 @@ const Chat = ({ user, setUsers }) => {
                 ref={inputRef}
                 autoComplete="off"
                 name="message"
+                disabled={loadingNewMessage}
               />
               <button
                 type="submit"
                 className="messages_btn -title -btn-primary -flex -acenter"
+                disabled= {loadingNewMessage}
               >
+                {loadingNewMessage ? 
+                <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>:
                 <img
                   className="send__message"
                   src={sendChatImg}
                   alt="send message"
-                />
-                SEND
+                />}
+                {loadingNewMessage? "": "SEND"}
               </button>
             </form>
           </div>

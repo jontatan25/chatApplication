@@ -6,8 +6,8 @@ import sendChatImg from "../../img/send-chat-icon.png";
 import { useChatContext } from "../../context/ChatContextProvider";
 import { useNavigate } from "react-router-dom";
 
-const URL = "http://localhost:8080";
-// const URL = "https://chatserver-s4bm.onrender.com"
+// const URL = "http://localhost:8080";
+const URL = "https://chatserver-s4bm.onrender.com"
 const socket = io.connect(URL);
 
 const Chat = ({ user, setUsers }) => {

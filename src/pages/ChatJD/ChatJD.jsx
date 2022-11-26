@@ -28,7 +28,6 @@ const ChatJD = () => {
             <div className="chat__window__title -title -flex">Chat</div>
             <Chat user={localUserInfo} setUsers={setUsers} />
           </div>
-
           <div className="chat__users">
             <div className="chat__window__title -users-title -title -flex">
               <img
@@ -70,6 +69,7 @@ const ChatJD = () => {
           </div>
         </div>
       )}
+             
     </>
   );
 };

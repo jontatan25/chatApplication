@@ -7,13 +7,12 @@
   justify-content: space-between;
   background-color: #fff;
 
-  box-shadow: 1px -2px 1px 7px rgba(219,219,219,0.3);
-  -webkit-box-shadow: 1px -2px 1px 7px rgba(219,219,219,0.3);
-  -moz-box-shadow: 1px -2px 1px 7px rgba(219,219,219,0.3);
+  box-shadow: 1px -2px 1px 7px rgba(219, 219, 219, 0.3);
+  -webkit-box-shadow: 1px -2px 1px 7px rgba(219, 219, 219, 0.3);
+  -moz-box-shadow: 1px -2px 1px 7px rgba(219, 219, 219, 0.3);
 }
 
 .navBar__logo {
-
   min-width: 180px;
   height: 100%;
   background-image: url(../../img/ChatJD-1.png);
@@ -33,4 +32,33 @@
 .nav__item-btn {
   color: #595959;
   font-size: 18px;
+}
+
+.nav__btn-out {
+  width: 170px;
+  height: 50px;
+
+  background-color: #fc676d;
+  border: 2px solid #d5575b;
+  border-width: 0 2px 4px;
+  border-radius: 5px;
+  justify-content: space-around;
+  align-self: center;
+
+  font-family: "Quicksand", sans-serif;
+  font-size: 18px;
+  transition: all 0.2s ease-out;
+  color: white;
+}
+.nav__btn-out:hover {
+  background-color: #ea5e62;
+  border-width: 0 1px 1px;
+  cursor: pointer;
+}
+.nav__btn-out:active {
+  background-color: #d5575b;
+}
+
+.nav__btn-out img {
+  height: 30px;
 }

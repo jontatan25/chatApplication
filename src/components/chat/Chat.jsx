@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import "./style.css";
 import sendChatImg from "../../img/send-chat-icon.png";
 
-// const socket = io.connect("http://localhost:8080");
+// const URL = "http://localhost:8080"
 const URL = "https://chatserver-s4bm.onrender.com"
 const socket = io.connect(URL);
 
@@ -19,7 +19,7 @@ const Chat = ({ user, setUsers }) => {
 
   const getInfo = async () => {
     try {
-      const res = await axios.get("https://chatserver-s4bm.onrender.com/api/messages", {});
+      const res = await axios.get(URL + "/api/messages", {});
       setMessages(res.data.messages);
       setLoadingMessages(false);
       return;
@@ -39,7 +39,7 @@ const Chat = ({ user, setUsers }) => {
     };
     try {
       var res = await axios.post(
-        "https://chatserver-s4bm.onrender.com/api/messages",
+        URL + "/api/messages",
         message
       );
       if ((res.data.success = true)) {

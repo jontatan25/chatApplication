@@ -3,8 +3,10 @@ import axios from "axios";
 import io from "socket.io-client";
 import "./style.css";
 import sendChatImg from "../../img/send-chat-icon.png";
+import { useChatContext } from "../../context/ChatContextProvider";
+import { useNavigate } from "react-router-dom";
 
-const URL = "http://localhost:8080"
+const URL = "http://localhost:8080";
 // const URL = "https://chatserver-s4bm.onrender.com"
 const socket = io.connect(URL);
 
@@ -12,10 +14,11 @@ const Chat = ({ user, setUsers }) => {
   const [messages, setMessages] = useState([]);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [loadingMessages, setLoadingMessages] = useState(true);
-  const [loadingNewMessage,setLoadingNewMessage] = useState(false);
+  const [loadingNewMessage, setLoadingNewMessage] = useState(false);
   const [messagesError, setMessagesError] = useState("");
 
-
+  const { logout, setLogout } = useChatContext();
+  const navigate = useNavigate();
   const inputRef = useRef(null);
   const msgListref = useRef(null);
 
@@ -32,21 +35,18 @@ const Chat = ({ user, setUsers }) => {
 
   let handleSumbitMessage = async (e) => {
     e.preventDefault();
-    setLoadingNewMessage(true)
+    setLoadingNewMessage(true);
     var message = {
       username: user.username,
       message: inputRef.current.value,
       avatar: user.avatar,
     };
     try {
-      var res = await axios.post(
-        URL + "/api/messages",
-        message
-      );
+      var res = await axios.post(URL + "/api/messages", message);
       if ((res.data.success = true)) {
         socket.emit("user_message", res.data.body);
         inputRef.current.value = "";
-        setLoadingNewMessage(false)
+        setLoadingNewMessage(false);
       }
     } catch (error) {
       console.log(error);
@@ -82,7 +82,6 @@ const Chat = ({ user, setUsers }) => {
     socket.on("newUserConnected", (users) => {
       setUsers(users);
     });
-    socket.on("newuserDisconnected", () => {});
 
     return () => {
       socket.off("connect");
@@ -91,6 +90,7 @@ const Chat = ({ user, setUsers }) => {
       socket.off("addUser");
     };
   }, [isConnected]);
+
   useEffect(() => {
     if (msgListref && msgListref.current) {
       const element = msgListref.current;
@@ -101,6 +101,14 @@ const Chat = ({ user, setUsers }) => {
       });
     }
   }, [msgListref, messages]);
+
+  useEffect(() => {
+    if (logout) {
+      localStorage.removeItem("localUserInfo");
+      setLogout(false);
+      navigate(0);
+    }
+  }, [logout]);
 
   return (
     <>
@@ -148,16 +156,23 @@ const Chat = ({ user, setUsers }) => {
               <button
                 type="submit"
                 className="messages_btn -title -btn-primary -flex -acenter"
-                disabled= {loadingNewMessage}
+                disabled={loadingNewMessage}
               >
-                {loadingNewMessage ? 
-                <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>:
-                <img
-                  className="send__message"
-                  src={sendChatImg}
-                  alt="send message"
-                />}
-                {loadingNewMessage? "": "SEND"}
+                {loadingNewMessage ? (
+                  <div className="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                ) : (
+                  <img
+                    className="send__message"
+                    src={sendChatImg}
+                    alt="send message"
+                  />
+                )}
+                {loadingNewMessage ? "" : "SEND"}
               </button>
             </form>
           </div>

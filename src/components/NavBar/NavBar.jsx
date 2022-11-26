@@ -2,10 +2,16 @@ import React from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
 import logoutIcon from "../../img/logout-icon.png"
+import { useChatContext } from "../../context/ChatContextProvider";
 
-const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
 
 const NavBar = () => {
+  
+  const localUserInfo = JSON.parse(localStorage.getItem("localUserInfo"));
+   const {setLogout} = useChatContext()
+  const handleLogOut = () => {
+    setLogout(true)
+  }
   return (
     
     <header>
@@ -33,7 +39,7 @@ const NavBar = () => {
           </li>
         </ul>
 
-           : <button className="nav__btn-out -flex -acenter">Log Out <img src={logoutIcon} alt="logout Button" /></button>}
+           : <button className="nav__btn-out -flex -acenter" onClick={handleLogOut}>Log Out <img src={logoutIcon} alt="logout Button" /></button>}
         
       </div>
     </header>

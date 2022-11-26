@@ -7,6 +7,7 @@ export const useChatContext = () => useContext(ChatContext);
 const ChatContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState("");
+  const [logout,setLogout] = useState(false);
   return (
     <ChatContext.Provider
       value={{
@@ -14,6 +15,8 @@ const ChatContextProvider = ({ children }) => {
         setIsLoggedIn,
         user,
         setUser,
+        logout,
+        setLogout
       }}
     >
       {children}

@@ -4,22 +4,27 @@ import io from "socket.io-client";
 import "./style.css";
 import sendChatImg from "../../img/send-chat-icon.png";
 
-const socket = io.connect("http://localhost:8080");
+// const socket = io.connect("http://localhost:8080");
+const URL = "https://chatserver-s4bm.onrender.com"
+const socket = io.connect(URL);
 
-const Chat = ({ user, users, setUsers }) => {
+const Chat = ({ user, setUsers }) => {
   const [messages, setMessages] = useState([]);
   const [isConnected, setIsConnected] = useState(socket.connected);
+  const [loadingMessages, setLoadingMessages] = useState(true);
+  const [messagesError, setMessagesError] = useState("");
 
-  // const token = JSON.parse(localStorage.getItem("user"));
   const inputRef = useRef(null);
   const msgListref = useRef(null);
 
   const getInfo = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/messages", {});
+      const res = await axios.get("https://chatserver-s4bm.onrender.com/api/messages", {});
       setMessages(res.data.messages);
+      setLoadingMessages(false);
       return;
     } catch (error) {
+      setMessagesError(error);
       console.log(error);
     }
   };
@@ -34,11 +39,8 @@ const Chat = ({ user, users, setUsers }) => {
     };
     try {
       var res = await axios.post(
-        "http://localhost:8080/api/messages",
+        "https://chatserver-s4bm.onrender.com/api/messages",
         message
-        // {
-        //   headers: { Authorization: `Bearer ${token}` },
-        // }
       );
       if ((res.data.success = true)) {
         socket.emit("user_message", res.data.body);
@@ -54,10 +56,7 @@ const Chat = ({ user, users, setUsers }) => {
   }, []);
 
   useEffect(() => {
-   
-
     const eventListener = (newMessage) => {
-      console.log(newMessage);
       if (messages) {
         setMessages((messages) => [...messages, newMessage]);
       } else setMessages([newMessage]);
@@ -67,27 +66,29 @@ const Chat = ({ user, users, setUsers }) => {
       socket.off("new_message", eventListener);
     };
   }, [messages]);
-const addUser = (newuser) => {
-  const updatedUsers = [...users]
-  updatedUsers.push(newuser);
-  setUsers(updatedUsers)
-}
+
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true);
-      socket.emit("new_user", user)
     });
     socket.on("disconnect", () => {
       setIsConnected(false);
     });
-    socket.on("new_user_connected", (user) => {
-      addUser(user)
+    if (user) {
+      socket.emit("addUser", user);
+    }
+    socket.on("newUserConnected", (users) => {
+      setUsers(users);
     });
-    return ()=> {
+    socket.on("newuserDisconnected", () => {});
+
+    return () => {
       socket.off("connect");
       socket.off("disconnect");
-    }
-  },[])
+      socket.off("newUserConnected");
+      socket.off("addUser");
+    };
+  }, [isConnected]);
   useEffect(() => {
     if (msgListref && msgListref.current) {
       const element = msgListref.current;
@@ -99,57 +100,63 @@ const addUser = (newuser) => {
     }
   }, [msgListref, messages]);
 
-  useEffect(() => {
-    console.log(users)
-  },[users])
   return (
     <>
-      <div className="messagesContainer -flex">
-        <ul ref={msgListref} id="messages">
-          {messages ? (
-            messages.map((messageInfo) => {
-              return (
-                <li key={messageInfo.id} className="messages__user">
-                  <div
-                    className="messages__avatar"
-                    style={{ backgroundImage: `url(${messageInfo.avatar})` }}
-                  ></div>
-                  {messageInfo.username}:
-                  <span className="messages__user-message">
-                    {messageInfo.message}
-                  </span>
-                  <span className="messages__time">{messageInfo.date}</span>
+      {loadingMessages ? (
+        <h4>Loading Messages.. </h4>
+      ) : messagesError ? (
+        <h4>Something went Wrong, Please try again Later</h4>
+      ) : (
+        messages && (
+          <div className="messagesContainer -flex">
+            <ul ref={msgListref} id="messages">
+              {messages ? (
+                messages.map((messageInfo) => {
+                  return (
+                    <li key={messageInfo.id} className="messages__user">
+                      <div
+                        className="messages__avatar"
+                        style={{
+                          backgroundImage: `url(${messageInfo.avatar})`,
+                        }}
+                      ></div>
+                      {messageInfo.username}:
+                      <span className="messages__user-message">
+                        {messageInfo.message}
+                      </span>
+                      <span className="messages__time">{messageInfo.date}</span>
+                    </li>
+                  );
+                })
+              ) : (
+                <li className="messages__user">
+                  There is No messages. Be the First one to say Hi!
                 </li>
-              );
-            })
-          ) : (
-            <li className="messages__user">
-              There is No messages. Be the First one to say Hi!
-            </li>
-          )}
-          <li className="messages__user">Welcome {user.username} !!</li>
-        </ul>
-        <form id="form" onSubmit={handleSumbitMessage}>
-          <input
-            id="input"
-            type="text"
-            ref={inputRef}
-            autoComplete="off"
-            name="message"
-          />
-          <button
-            type="submit"
-            className="messages_btn -title -btn-primary -flex -acenter"
-          >
-            <img
-              className="send__message"
-              src={sendChatImg}
-              alt="send message"
-            />
-            SEND
-          </button>
-        </form>
-      </div>
+              )}
+            </ul>
+            <form id="form" onSubmit={handleSumbitMessage}>
+              <input
+                id="input"
+                type="text"
+                ref={inputRef}
+                autoComplete="off"
+                name="message"
+              />
+              <button
+                type="submit"
+                className="messages_btn -title -btn-primary -flex -acenter"
+              >
+                <img
+                  className="send__message"
+                  src={sendChatImg}
+                  alt="send message"
+                />
+                SEND
+              </button>
+            </form>
+          </div>
+        )
+      )}
     </>
   );
 };

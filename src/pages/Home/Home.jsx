@@ -54,12 +54,6 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    if (countriesInfo) {
-      console.log(userInfo[0]);
-    }
-  }, [userInfo]);
-
   const saveUser = async (postedInfo) => {
     try {
       const res = await axios.post(
@@ -68,8 +62,9 @@ const Home = () => {
       );
       if (res.data.success === true) {
         setIsLoggedIn(true);
-        setUser(postedInfo);
-        localStorage.setItem("localUserInfo", JSON.stringify(postedInfo));
+        setUser(res.data.body);
+        console.log(res.data.body)
+        localStorage.setItem("localUserInfo", JSON.stringify(res.data.body));
         navigate("/chat");
       } else {
         console.log("something Went wrong", res.data);

@@ -48,22 +48,25 @@ const Chat = ({ user, setUsers }) => {
 
   let handleSumbitMessage = async (e) => {
     e.preventDefault();
-    setLoadingNewMessage(true);
+
     var message = {
       username: user.username,
       message: inputRef.current.value,
       avatar: user.avatar,
     };
-    try {
-      var res = await axios.post(URL + "/api/messages", message);
-      if ((res.data.success = true)) {
-        socket.emit("user_message", res.data.body);
-        inputRef.current.value = "";
-        setLoadingNewMessage(false);
+    if (inputRef.current.value) {
+      setLoadingNewMessage(true);
+      try {
+        var res = await axios.post(URL + "/api/messages", message);
+        if ((res.data.success = true)) {
+          socket.emit("user_message", res.data.body);
+          inputRef.current.value = "";
+          setLoadingNewMessage(false);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } else console.log("empty")
   };
 
   useEffect(() => {

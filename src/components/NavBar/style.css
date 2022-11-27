@@ -62,3 +62,9 @@
 .nav__btn-out img {
   height: 30px;
 }
+
+@media screen and (max-width: 768px) {
+  .navBar__nav.-flex {
+    display: none;
+  }
+}

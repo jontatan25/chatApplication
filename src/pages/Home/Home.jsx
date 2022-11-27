@@ -149,6 +149,7 @@ const Home = () => {
                 <label className="register__label -flex" htmlFor="age">
                   Age
                 </label>
+                <div className="register__input age__container">
                 <input
                   className="register__input"
                   id="age"
@@ -159,6 +160,7 @@ const Home = () => {
                   onChange={(e) => handleChange(e)}
                   required
                 />
+                </div>
               </div>
               <div className="register__group -flex">
                 <span className="register__label -flex">Gender</span>

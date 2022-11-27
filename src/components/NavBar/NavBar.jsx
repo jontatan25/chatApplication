@@ -21,14 +21,14 @@ const NavBar = () => {
         </Link>
           {!localUserInfo ?  
         <ul className="navBar__nav -flex">
-           <li className="nav__item">
+           {/* <li className="nav__item">
             <Link to="/">
               <button className="nav__item-btn -btn-primary -title">
                 Home
               </button>{" "}
             </Link>
-          </li>
-           <li className="nav__item">
+          </li> */}
+           {/* <li className="nav__item">
             <button className="nav__item-btn -btn-primary -title">About</button>{" "}
           </li> 
           
@@ -36,7 +36,7 @@ const NavBar = () => {
             <button className="nav__item-btn -btn-primary -title">
               Contact Us
             </button>
-          </li>
+          </li> */}
         </ul>
 
            : <button className="nav__btn-out -flex -acenter" onClick={handleLogOut}>Log Out <img src={logoutIcon} alt="logout Button" /></button>}

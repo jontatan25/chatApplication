@@ -20,7 +20,7 @@
   width: fit-content;
   padding: 8px 20px 10px 16px;
   min-height: 41px;
-  max-height: 174px;
+  max-height: 274px;
   align-items: center;
   display: flex;
   font-family: "FiraGO", sans-serif;
@@ -54,6 +54,7 @@
   padding-left: 10px;
   font-size: 1em;
   height: auto;
+  max-width: 500px;
 }
 
 #form {
@@ -66,7 +67,7 @@
   height: 68px;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
-  border-radius: 0 0 4px 4px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
 }
@@ -163,5 +164,11 @@
   }
   100% {
     transform: translate(24px, 0);
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .messages__user-message {
+    max-width: 350px;
   }
 }

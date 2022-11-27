@@ -11,10 +11,9 @@
 }
 .chat__mobile__options {
   width: 90%;
-  height: 60px;
+  height: 50px;
   min-width: 690px;
   margin: 0 auto;
-  padding-left: 40px;
   align-items: flex-end;
   display:none;
 }
@@ -37,6 +36,10 @@
 .-users{
   background-color: #333333;
   color: white
+}
+
+.-chat{
+  margin-left: 30px;
 }
 
 .-active{
@@ -71,6 +74,7 @@
 
 .chat__users {
   flex: 1;
+  min-width: 280px;
   height: 100%;
   background-color: #333333;
   border-radius: 0 5px 4px 0;
@@ -138,21 +142,38 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .chat__mobile__options {
-    width: 90%;
-    height: 60px;
-    min-width: 690px;
-    margin: 0 auto;
-    padding-left: 40px;
-    align-items: flex-end;
-    display:flex;
-  }
+  
   .chat__container {
     width: 90%;
-    min-width: 690px;
+    min-width: 350px;
+    height: calc(100vh - 145px);
+  }
+  .chat__mobile__options {
+    display:flex;
+    min-width: 350px;
   }
   .-hideWindow {
     display:none;
   }
   
 }
+
+@media screen and (max-width: 480px) {
+
+  .chat__container {
+    width: 90%;
+    min-width: 200px;
+    height: calc(100vh - 145px);
+  }
+  .chat__window{
+    min-width: 200px;
+  }
+  .chat__mobile__options {
+    display:flex;
+    min-width: 200px;
+  }
+  .-hideWindow {
+    display:none;
+  }
+}
+  

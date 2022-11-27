@@ -4,10 +4,10 @@ import io from "socket.io-client";
 import "./style.css";
 import sendChatImg from "../../img/send-chat-icon.png";
 import { useChatContext } from "../../context/ChatContextProvider";
-import { useNavigate } from "react-router-dom";
+import logo from "../../img/logo-CJD.png";
 
 // const URL = "http://localhost:8080";
-const URL = "https://chatserver-s4bm.onrender.com"
+const URL = "https://chatserver-s4bm.onrender.com";
 const socket = io.connect(URL);
 
 const Chat = ({ user, setUsers }) => {
@@ -18,15 +18,28 @@ const Chat = ({ user, setUsers }) => {
   const [messagesError, setMessagesError] = useState("");
 
   const { logout, setLogout } = useChatContext();
-  const navigate = useNavigate();
+
   const inputRef = useRef(null);
   const msgListref = useRef(null);
 
   const getInfo = async () => {
     try {
       const res = await axios.get(URL + "/api/messages", {});
-      setMessages(res.data.messages);
+      if (res.data.message === "There is no Messages yet") {
+        console.log("no messages yet");
+        setMessages([{
+          id: "01234567890",
+          username: "ChatJD",
+          message: "There is no Messages Yet, Be the First one To say Hello!",
+          avatar: logo,
+          date: ""
+      }])
       setLoadingMessages(false);
+      } else {
+        setMessages(res.data.messages);
+        setLoadingMessages(false);
+        console.log(res)
+      }
     } catch (error) {
       setMessagesError(error);
       console.log(error);

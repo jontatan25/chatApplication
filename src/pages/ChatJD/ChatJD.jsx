@@ -28,7 +28,7 @@ const ChatJD = () => {
       {users && (
         <>
           <div className="chat__mobile__options">
-            <button onClick={()=>handleToogle(true)} className={activeChat ? "-btn-primary mobile__options -flex -acenter -active" : "-btn-primary mobile__options -flex -acenter"}>
+            <button onClick={()=>handleToogle(true)} className={activeChat ? "-btn-primary mobile__options -chat -flex -acenter -active" : "-btn-primary mobile__options -chat -flex -acenter"}>
             <img
                 className="chat__users__img"
                 src={logo}

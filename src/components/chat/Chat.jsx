@@ -105,8 +105,7 @@ const Chat = ({ user, setUsers }) => {
   useEffect(() => {
     if (logout) {
       localStorage.removeItem("localUserInfo");
-      setLogout(false);
-      navigate(0);
+      window.location.href = "https://jhonndevchat.netlify.app";
     }
   }, [logout]);
 

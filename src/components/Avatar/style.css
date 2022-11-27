@@ -66,3 +66,9 @@
   border: 1px solid #d1d1d1;
   max-height: 500%;
 }
+
+@media screen and (max-width: 1024px) {
+  .avatar__register__container {
+    margin-right: 0;
+}
+}

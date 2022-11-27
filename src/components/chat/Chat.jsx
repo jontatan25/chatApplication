@@ -130,9 +130,9 @@ const Chat = ({ user, setUsers }) => {
                         }}
                       ></div>
                       {messageInfo.username}:
-                      <span className="messages__user-message">
+                      <div className="messages__user-message">
                         {messageInfo.message}
-                      </span>
+                      </div>
                       <span className="messages__time">{messageInfo.date}</span>
                     </li>
                   );
@@ -150,6 +150,7 @@ const Chat = ({ user, setUsers }) => {
                 ref={inputRef}
                 autoComplete="off"
                 name="message"
+                maxLength="100"
                 disabled={loadingNewMessage}
               />
               <button

@@ -19,7 +19,8 @@
 .messages__user {
   width: fit-content;
   padding: 8px 20px 10px 16px;
-  height: 2.5em;
+  min-height: 41px;
+  max-height: 174px;
   align-items: center;
   display: flex;
   font-family: "FiraGO", sans-serif;
@@ -52,6 +53,7 @@
   font-weight: 200;
   padding-left: 10px;
   font-size: 1em;
+  height: auto;
 }
 
 #form {

@@ -65,7 +65,8 @@ const Home = () => {
   const saveUser = async (postedInfo) => {
     try {
       const res = await axios.post(
-        "http://192.168.0.104:8080/api/messages/register",
+        // "http://192.168.0.104:8080/api/messages/register",
+        "https://chatserver-s4bm.onrender.com/api/messages/register",
         postedInfo
       );
       if (res.data.success === true) {

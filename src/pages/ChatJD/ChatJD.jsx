@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useChatContext } from "../../context/ChatContextProvider";
 
 import Chat from "../../components/Chat/Chat";
 import "./style.css";

@@ -10,6 +10,7 @@ import CountryOption from "../../components/CountryOption.jsx/CountryOption";
 import { useChatContext } from "../../context/ChatContextProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 const Home = () => {
   const { setIsLoggedIn, setUser } = useChatContext();
@@ -98,11 +99,7 @@ const Home = () => {
     <>
       <section>
         <div className="home__container -flex">
-          <div className="home__logo"></div>
-          <h2 className="home__title -title">
-            Online Chat rooms Without Registration
-          </h2>
-          <h3 className="home__subtitle">JD Chat Rooms</h3>
+         <PageHeader/>
           <div className="home__register">
             <h4 className="register__title">Join Chat</h4>
             <form onSubmit={(e) => handleSubmit(e)}>

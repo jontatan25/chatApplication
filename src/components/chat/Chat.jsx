@@ -17,7 +17,7 @@ const Chat = ({ user, setUsers }) => {
   const [loadingNewMessage, setLoadingNewMessage] = useState(false);
   const [messagesError, setMessagesError] = useState("");
 
-  const { logout, setLogout } = useChatContext();
+  const { logout } = useChatContext();
 
   const inputRef = useRef(null);
   const msgListref = useRef(null);
@@ -26,7 +26,6 @@ const Chat = ({ user, setUsers }) => {
     try {
       const res = await axios.get(URL + "/api/messages", {});
       if (res.data.message === "There is no Messages yet") {
-        console.log("no messages yet");
         setMessages([{
           id: "01234567890",
           username: "ChatJD",
@@ -38,7 +37,6 @@ const Chat = ({ user, setUsers }) => {
       } else {
         setMessages(res.data.messages);
         setLoadingMessages(false);
-        console.log(res)
       }
     } catch (error) {
       setMessagesError(error);
@@ -66,7 +64,7 @@ const Chat = ({ user, setUsers }) => {
       } catch (error) {
         console.log(error);
       }
-    } else console.log("empty")
+    } 
   };
 
   useEffect(() => {

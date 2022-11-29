@@ -5,19 +5,19 @@ import "./style.css";
 const AboutUs = () => {
   return (
     <>
-      <div className="home__container -flex">
+      <div className="home__container -aboutContainer -flex">
         <PageHeader />
-        <div className="home__register">
+        <div className="home__register -about">
           <h4 className="about__title">About ChatJD</h4>
           <p className="about__text">
-            About Chattusa CHATTUSA is a free online chat room for people all
+            ChatJD is a free online chat room for people all
             over the world.{" "}
             <p className="about__text">
               It helps you meet new people, single women and men and make new
               friends.
             </p>{" "}
             <p className="about__text">
-              We don't log or keep users' data and messages, making Chattusa
+              We don't log or keep users' data and messages, making ChattJD
               totally Anonymous and secure.{" "}
             </p>
             <p className="about__text">

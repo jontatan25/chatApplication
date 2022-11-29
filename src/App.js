@@ -8,6 +8,7 @@ import "./style.css";
 import ChatJD from "./pages/ChatJD/ChatJD";
 import ChatContextProvider from "./context/ChatContextProvider";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" element={<AboutUs />}></Route>
           <Route path="*" element={<h3>NOT FOUND</h3>} status={404}></Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </ChatContextProvider>
   );

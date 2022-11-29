@@ -1,0 +1,30 @@
+
+.footer__container {
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0 10px 0;
+    position: relative;
+    background-color: #68c0fcde;
+}
+
+.footer__title {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+
+
+.-alias {
+    position : absolute;
+    right: 17px;
+    bottom: 2px;
+    font-size: 14px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.chat__users__img.-footerImg {
+ background-color: white;
+height:18px;
+border-radius:2px;
+}

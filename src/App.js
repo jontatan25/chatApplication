@@ -9,6 +9,7 @@ import ChatJD from "./pages/ChatJD/ChatJD";
 import ChatContextProvider from "./context/ChatContextProvider";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Footer from "./components/Footer/Footer";
+import ContacUs from "./pages/ContactUs/ContacUs";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/chat" element={<ChatJD />}></Route>
           <Route path="/about" element={<AboutUs />}></Route>
+          <Route path="contact" element={<ContacUs/>} ></Route>
           <Route path="*" element={<h3>NOT FOUND</h3>} status={404}></Route>
         </Routes>
         <Footer/>

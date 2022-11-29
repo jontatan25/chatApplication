@@ -6,7 +6,7 @@ const Footer = () => {
     <>
       <div className="footer__container -flex">
         <h2 className="footer__title">ChatJD Online Chat Rooms</h2>
-        <p className="footer__text -flex -acenter">
+        <p className="footer__text -flex ">
           {" "}
           <img
             className="chat__users__img -footerImg"

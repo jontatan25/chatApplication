@@ -17,6 +17,7 @@
 
 .contact__form {
   width: 36%;
+  min-width: 300px;
 }
 
 .contact__lab {

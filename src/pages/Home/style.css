@@ -277,7 +277,7 @@ LOADING ANIMATION */
     width: 95%;
   }
   .home__register {
-    width: 80%;
+    width: 90%;
     min-width: 275px;
   }
   .home__logo {
@@ -286,5 +286,12 @@ LOADING ANIMATION */
   }
   .register__avatar {
     margin: 0 0 22px 5%;
+  }
+  .register__input{
+    width:90%;
+  }
+  .register__group {
+    width: 100%;
+    align-items:start;
   }
 }
